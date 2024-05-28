@@ -11,8 +11,13 @@ def check_is_digit(value):
     return s.isdigit()
 
 
+# df2.drop('Проверка is_digit', axis=1, inplace=True) delete column
 df = pd.read_csv('Новая таблица - Лист1.csv')
 ch = df["ИЛС/Внутренний номер"].map(check_length)
 ch2 = df["ИЛС/Внутренний номер"].map(check_is_digit)
+# df.set_index('Номер заказа', inplace=True)
+# df['Кол-во символов в ЛС'] = df["ИЛС/Внутренний номер"].map(check_length).sort_values()
+# df['Проверка is_digit: ЛС включает только цифры'] = df["ИЛС/Внутренний номер"].map(check_is_digit).sort_values(ascending=False)
+# df.to_excel('ERM.xlsx')
 print(ch.sort_values())
 print(ch2.sort_values(ascending=False))

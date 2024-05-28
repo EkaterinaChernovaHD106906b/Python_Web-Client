@@ -1,0 +1,18 @@
+import pandas as pd
+
+
+def check_length(value):
+    s = str(value)
+    return len(s)
+
+
+def check_is_digit(value):
+    s = str(value)
+    return s.isdigit()
+
+
+df = pd.read_csv('Новая таблица - Лист1.csv')
+ch = df["ИЛС/Внутренний номер"].map(check_length)
+ch2 = df["ИЛС/Внутренний номер"].map(check_is_digit)
+print(ch.sort_values())
+print(ch2.sort_values(ascending=False))

@@ -1,6 +1,9 @@
 import pandas as pd
 
 
+import pandas as pd
+
+
 def check_length(value):
     s = str(value)
     return len(s)
@@ -19,6 +22,7 @@ def save_to_xls(path, dict_rename, actual_columns):
     df[necessary_columns[3]] = df[necessary_columns[1]].map(check_is_digit).sort_values(
         ascending=False)
     df2 = df[actual_columns]
+    df2.set_index(necessary_columns[0], inplace=True)
     df2.to_excel('ERM.xlsx')
 
 
@@ -26,14 +30,9 @@ def outpute_to_console(path, dict_rename, actual_columns):
     df = pd.read_excel(path)
     df.dropna(inplace=True)
     df.rename(columns=dict_rename, inplace=True)
+    df.set_index(necessary_columns[0], inplace=True)
     ch = df[necessary_columns[1]].map(check_length).sort_values()
     ch2 = df[necessary_columns[1]].map(check_is_digit).sort_values(
         ascending=False)
     return ch, ch2
 
-
-rename_columns = {'Unnamed: 0': "Номер заказа", 'Unnamed: 5': "ИЛС/Внутренний номер"}
-necessary_columns = ["Номер заказа", "ИЛС/Внутренний номер", "Кол-во символов в ЛС",
-                     "Проверка is_digit: ЛС включает только цифры"]
-save_to_xls('Заявки-CDR_общий_01.01.2024.xls', rename_columns, necessary_columns)
-print(outpute_to_console('Заявки-CDR_общий_01.01.2024.xls', rename_columns, necessary_columns))
